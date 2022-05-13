@@ -1,0 +1,15 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © only_fibonacci
+
+//@version=5
+strategy("EMA Strategy",overlay=true)
+ema9=ta.ema(close,9)
+ema28 = ta.ema(close,28)
+buy = ta.crossover(ema9,ema28)
+buyExit =ta.crossunder(ema9,ema28)
+if(buy)
+    strategy.entry("BUY",strategy.long,comment="BUY")
+if (buyExit)
+    strategy.exit("exit","BUY",comment="SELL",limit=close)
+plot(ema9,color = color.green, title="EMA9")
+plot(ema28, color=color.red, title="EMA28")
